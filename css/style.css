@@ -1,0 +1,48 @@
+body {
+    font-size: 16px;
+    color: #999;
+}
+
+/* ========== Nav and Search ========== */
+.nav-search {
+  position: relative;
+  height: 76px;
+}
+
+input {
+  padding-left: 10px;
+  border: 1px solid #D2D2D2;
+}
+
+input#search {
+  display: block;
+  height: 2em;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+:placeholder-shown {
+  color: #D2D2D2;
+}
+
+::-webkit-input-placeholder {
+  color: #D2D2D2;
+}
+
+::-moz-placeholder {
+  color: #D2D2D2;
+}
+
+:-ms-input-placeholder {
+  color: #D2D2D2;
+}
+
+@media only screen and (min-width: 769px), only screen and (min-width: 700px) and (orientation: landscape) {
+  p {
+    font-size: 1em;
+  }
+
+  input#search {
+    width: 449px;
+  }
+}
