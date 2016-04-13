@@ -15,7 +15,7 @@
 
 .image-slide img {
   position: relative;
-  top: 10%;
+  top: 10vh;
   max-width: 800px;
 }
 
@@ -25,6 +25,22 @@
   width: 600px;
   margin: auto;
   text-align: left;
+}
+
+h4#close-slideshow {
+  position: relative;
+  font-size: 2em;
+  transform: rotate(45deg);
+}
+
+#close-slideshow {
+  position: absolute !important;
+  display: inline-block;
+  right: -60px;
+  height: 35px;
+  width: 35px;
+  border: 2px solid gray;
+  border-radius: 50%;
 }
 
 body {
