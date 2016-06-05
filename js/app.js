@@ -1,7 +1,15 @@
-
 $("img").click(function() {
   $('div[id="overlay"]').addClass("darkTransparent");
+  var $altText = $(this).attr("alt");
+  var $innerHTML = "";
+  $innerHTML += '<div id="large-slide-image"><h4 id="close-slideshow">+</h4>';
+  $innerHTML += '<img src="assets/Photos/01.jpg"></div>';
+  $innerHTML += '<p>';
+  $innerHTML += $altText;
+  $innerHTML += '</p>';
+  $(".image-slide").append($innerHTML);
 
+<<<<<<< HEAD
   var altText = "";
   var srcUrl = "";
   var fileName ="";
@@ -23,16 +31,12 @@ $("img").click(function() {
   // innerHTML += '<div class="close"><img id="close-slideshow" src="assets/icon/close.svg"></div>';
   // innerHTML += '</div>';
   $(".image-slide").append(innerHTML);
+=======
+>>>>>>> parent of 5cf6d4c... Lots of things
 });
 
-$('.close').click(function() {
-  console.log('Clicked');
-  $(".image-slide p").remove();
+$(".image-slide").click(function() {
   $("#large-slide-image").remove();
   $("#overlay").removeClass("darkTransparent");
 
-});
-
-$('.next').click(function() {
-  console.log('Next has been clicked!');
 });
