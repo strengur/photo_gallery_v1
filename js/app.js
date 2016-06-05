@@ -1,18 +1,38 @@
+
 $("img").click(function() {
   $('div[id="overlay"]').addClass("darkTransparent");
-  var $altText = $(this).attr("alt");
-  var $innerHTML = "";
-  $innerHTML += '<div id="large-slide-image"><h4 id="close-slideshow">+</h4>';
-  $innerHTML += '<img src="assets/Photos/01.jpg"></div>';
-  $innerHTML += '<p>';
-  $innerHTML += $altText;
-  $innerHTML += '</p>';
-  $(".image-slide").append($innerHTML);
 
+  var altText = "";
+  var srcUrl = "";
+  var fileName ="";
+  var innerHTML = "";
+
+  altText = $(this).attr("alt");
+  srcUrl = $(this).attr("src");
+  fileName = srcUrl.slice(srcUrl.lastIndexOf('/'));
+
+  innerHTML += '<div id="large-slide-image">';
+  innerHTML += '<div class="previous"><img src="assets/icon/left-arrow.svg"></div>';
+  innerHTML += '<div class="next"><img src="assets/icon/right-arrow.svg"></div>';
+  innerHTML += '<img src="assets/Photos/';
+  innerHTML += fileName;
+  innerHTML += '">';
+  innerHTML += '<p>';
+  innerHTML += altText;
+  innerHTML += '</p>';
+  innerHTML += '<div class="close"><img id="close-slideshow" src="assets/icon/close.svg"></div>';
+  innerHTML += '</div>';
+  $(".image-slide").append(innerHTML);
 });
 
-$(".image-slide").click(function() {
+$('.close').click(function() {
+  console.log('Clicked');
+  $(".image-slide p").remove();
   $("#large-slide-image").remove();
   $("#overlay").removeClass("darkTransparent");
 
+});
+
+$('.next').click(function() {
+  console.log('Next has been clicked!');
 });
