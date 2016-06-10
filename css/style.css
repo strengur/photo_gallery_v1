@@ -37,29 +37,32 @@
   top: 150px;
 }
 
-.previous,
-.next {
+.arrows {
   position: absolute;
-  top: 50%;
-  margin-top: -50px;
+  top: 0;
+}
+
+img.arrows {
+  height: 40px;
 }
 
 .previous {
-  left: -40px;
+  left: 10%;
 }
 
 .next {
-  right: -40px;
+  right: 10%;
 }
 
 .close {
   position: absolute !important;
   width: 40px;
-  top: -40px;
-  right: -40px;
+  top: -60px;
 }
 
-.close:hover {
+.close:hover,
+.previous:hover,
+.next:hover {
   cursor: pointer;
 }
 
