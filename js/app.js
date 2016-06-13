@@ -1,20 +1,22 @@
 // Set the gloabal varable for large image path.
-$folderPath = "assets/Photos";
+var $folderPath = "assets/Photos";
 
 // Set variable for the elements that will be added to the body when thumbnail is clicked. The structure of overlay.
-var $overlay = $('<div id="overlay"></div>');
-var $image = $("<img>");
+var $overlay = $('<div class="overlay"></div>');
+var $imageArea = $('<div class="overlay-image-area"></div>');
+var $image = $('<img class="large-image">');
 var $caption = $("<p></p>");
-var $leftArrow = $('<img class="previous arrows" src="assets/icons/left-arrow.svg" alt="Arrow icon pointing left">');
-var $rightArrow = $('<img class="next arrows" src="assets/icons/right-arrow.svg" alt="Arrow icon pointing right">');
-var $closeOverlay = $('<img class="close" src="assets/icons/close.svg" alt="X icon to close the overlay">');
+var $leftArrow = $('<img class="previous overlay-icon" src="assets/icons/left-arrow.svg" alt="Arrow icon pointing left">');
+var $rightArrow = $('<img class="next overlay-icon" src="assets/icons/right-arrow.svg" alt="Arrow icon pointing right">');
+var $closeOverlay = $('<img class="close overlay-icon" src="assets/icons/close.svg" alt="X icon to close the overlay">');
 
 // Append elements to overlay's div
-$overlay.append($image);
-$overlay.append($caption);
-$overlay.append($leftArrow);
-$overlay.append($rightArrow);
-$overlay.append($closeOverlay);
+$overlay.append($imageArea);
+$imageArea.append($leftArrow);
+$imageArea.append($closeOverlay);
+$imageArea.append($rightArrow);
+$imageArea.append($image);
+$imageArea.append($caption);
 
 // Append the complete overlay to the body
 $("body").append($overlay);
@@ -46,8 +48,8 @@ $("#imageGalleryList a").click(function (event) {
 });
 
 //This function shows previous image.
-$(".previous").click(function() {
-  if ($previous != undefined) {
+$(".previous").click(function previousImage() {
+  if ($previous !== undefined) {
     // Get and set basic variables to be used to display correct image and caption.
     var $imagePath = $($previous).attr("href");
     // Use the slice to get only the file name of the thumbnail.
@@ -69,15 +71,16 @@ $(".previous").click(function() {
     if ($previous.attr("href") === undefined) {
       $(".previous").hide();
     }
-    if ($next.attr("href") != undefined) {
+    if ($next.attr("href") !== undefined) {
       $(".next").show();
     }
   }
 });
 
 //This function shows next image.
-$(".next").click(function() {
-  if ($next.attr("href") != undefined) {
+$(".next").click(function nextImage() {
+  if ($next.attr("href") !== undefined) {
+
     // Get and set basic variables to be used to display correct image and caption.
     var $imagePath = $($next).attr("href");
     // Use the slice to get only the file name of the thumbnail.
@@ -99,12 +102,33 @@ $(".next").click(function() {
     if ($next.attr("href") === undefined) {
       $(".next").hide();
     }
-    if ($previous.attr("href") != undefined) {
+    if ($previous.attr("href") !== undefined) {
       $(".previous").show();
     }
   }
 });
 
-$(".close").click(function() {
-  $overlay.fadeOut();
-});
+// document.onkeydown = function(e) {
+//         e = e || window.event;
+//         if (e.keyCode == '37') {
+//             changeImage(-1); //left <- show Prev image
+//         } else if (e.keyCode == '39') {
+//             // right -> show next image
+//             return nextImage();
+//         }
+//       }
+
+// $(".close").click(function() {
+//   $overlay.fadeOut();
+// });
+//
+// $("body").keypress(function(event){
+//     if(event.keyCode == 13){
+//      alert('Halló');
+//       //  validate(); doesn't need to be called from here
+//     }
+// });
+//
+// document.addEventListener("keydown", function(event) {
+//   console.log(event.which);
+// });
