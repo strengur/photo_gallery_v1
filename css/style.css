@@ -67,6 +67,11 @@ input#search {
   font-size: 1em;
 }
 
+iframe {
+  width: 200px;
+  height: 200px;
+}
+
 /* ========== Light box overlay ========== */
 .overlay {
   position: absolute;

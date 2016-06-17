@@ -24,7 +24,6 @@ $("body").append($overlay);
 // When a thumbnail is clicked the the overlay is showed width this function.
 $("#imageGalleryList a").click(function (event) {
   event.preventDefault();
-
   // Get and set basic variables to be used to display correct image and caption.
   var $imagePath = $(this).attr("href");
   // Use the slice property to get only the file name of the thumbnail.
@@ -132,3 +131,37 @@ $(".next").click(function nextImage() {
 // document.addEventListener("keydown", function(event) {
 //   console.log(event.which);
 // });
+
+
+
+//Live search
+// var $rows = $('#imageGalleryList p');
+// $('#search').keyup(function() {
+//     var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+//     console.log(val);
+//     $rows.show().filter(function() {
+//         var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+//         console.log(text);
+//         return !~text.indexOf(val);
+//     }).hide();
+// });
+
+var $rows = $('#imageGalleryList li');
+    var $imageCaption = $rows.children().children().attr('alt');
+$('#search').keyup(function() {
+  var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase().split(' ');
+
+  $rows.hide().filter(function() {
+
+
+    console.log($imageCaption);
+    //var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+    var text = $imageCaption.replace(/\s+/g, ' ').toLowerCase();
+    console.log(text);
+    var matchesSearch = true;
+    $(val).each(function(index, value) {
+      matchesSearch = (!matchesSearch) ? false : ~text.indexOf(value);
+    });
+    return matchesSearch;
+  }).show();
+});
