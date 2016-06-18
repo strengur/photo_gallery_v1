@@ -107,61 +107,26 @@ $(".next").click(function nextImage() {
   }
 });
 
-// document.onkeydown = function(e) {
-//         e = e || window.event;
-//         if (e.keyCode == '37') {
-//             changeImage(-1); //left <- show Prev image
-//         } else if (e.keyCode == '39') {
-//             // right -> show next image
-//             return nextImage();
-//         }
-//       }
-
-// $(".close").click(function() {
-//   $overlay.fadeOut();
-// });
-//
-// $("body").keypress(function(event){
-//     if(event.keyCode == 13){
-//      alert('Halló');
-//       //  validate(); doesn't need to be called from here
-//     }
-// });
-//
-// document.addEventListener("keydown", function(event) {
-//   console.log(event.which);
-// });
-
-
-
-//Live search
-// var $rows = $('#imageGalleryList p');
-// $('#search').keyup(function() {
-//     var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-//     console.log(val);
-//     $rows.show().filter(function() {
-//         var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-//         console.log(text);
-//         return !~text.indexOf(val);
-//     }).hide();
-// });
-
-var $rows = $('#imageGalleryList li');
-    var $imageCaption = $rows.children().children().attr('alt');
 $('#search').keyup(function() {
-  var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase().split(' ');
+  var keyValue = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 
-  $rows.hide().filter(function() {
+  $('#imageGalleryList li').hide().filter(function() {
+    var imageAttr = $(this).children().children().attr('alt').replace(/\s+/g, ' ').toLowerCase();
+    console.log('imageAtttr decl. ' + imageAttr);
+    var searchResult = true;
+    console.log('First searchResult ' + searchResult);
 
+    $(keyValue).each(function(index, value) {
+      count = imageAttr.length;
+      console.log('Begin of each ' + count);
+      console.log(imageAttr.indexOf(value));
+      searchResult = (!searchResult) ? false : ~imageAttr.indexOf(value);
+      console.log('Second ' + searchResult);
+      console.log('Each imageAttr ' + imageAttr);
 
-    console.log($imageCaption);
-    //var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-    var text = $imageCaption.replace(/\s+/g, ' ').toLowerCase();
-    console.log(text);
-    var matchesSearch = true;
-    $(val).each(function(index, value) {
-      matchesSearch = (!matchesSearch) ? false : ~text.indexOf(value);
     });
-    return matchesSearch;
+    return searchResult;
+
   }).show();
+
 });
