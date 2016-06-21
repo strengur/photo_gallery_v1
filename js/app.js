@@ -107,26 +107,71 @@ $(".next").click(function nextImage() {
   }
 });
 
-$('#search').keyup(function() {
-  var keyValue = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 
-  $('#imageGalleryList li').hide().filter(function() {
-    var imageAttr = $(this).children().children().attr('alt').replace(/\s+/g, ' ').toLowerCase();
-    console.log('imageAtttr decl. ' + imageAttr);
-    var searchResult = true;
-    console.log('First searchResult ' + searchResult);
 
-    $(keyValue).each(function(index, value) {
-      count = imageAttr.length;
-      console.log('Begin of each ' + count);
-      console.log(imageAttr.indexOf(value));
-      searchResult = (!searchResult) ? false : ~imageAttr.indexOf(value);
-      console.log('Second ' + searchResult);
-      console.log('Each imageAttr ' + imageAttr);
 
-    });
-    return searchResult;
+var $unorderedList = $("#imageGalleryList");
+var $listItem = $("#imageGalleryList li")
+var $searchString = $("#search");
 
-  }).show();
 
-});
+function isSearchPresent() {
+  return $searchString.val().length > 3;
+}
+
+function hideNoMatchingImages() {
+  var re = $searchString.val();
+  var imageAttr = $listItem.each(function(  ) {
+    console.log( $( this ).children().children().attr('alt').replace(/\s+/g, ' ').toLowerCase() );
+  });
+  console.log("The string you are typing: " + re);
+
+  if (imageAttr.search(re) != -1) {
+    midstring = ' contains ';
+  } else {
+    midstring = ' does not contain ';
+  }
+  console.log(imageAttr + midstring + re);
+
+
+  if(isSearchPresent()) {
+    $listItem.fadeOut();
+
+    console.log("YEEEES!?!?!");
+  } else {
+    $listItem.fadeIn();
+    console.log("NOOOOO!!!");
+  }
+}
+
+$searchString.keyup(hideNoMatchingImages);
+
+
+
+
+
+
+
+// $('#search').keyup(function() {
+//   var keyValue = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+//
+//   $('#imageGalleryList li').hide().filter(function() {
+//     var imageAttr = $(this).children().children().attr('alt').replace(/\s+/g, ' ').toLowerCase();
+//     console.log('imageAtttr decl. ' + imageAttr);
+//     var searchResult = true;
+//     console.log('First searchResult ' + searchResult);
+//
+//     $(keyValue).each(function(index, value) {
+//       count = imageAttr.length;
+//       console.log('Begin of each ' + count);
+//       console.log(imageAttr.indexOf(value));
+//       searchResult = (!searchResult) ? false : ~imageAttr.indexOf(value);
+//       console.log('Second ' + searchResult);
+//       console.log('Each imageAttr ' + imageAttr);
+//
+//     });
+//     return searchResult;
+//
+//   }).show();
+//
+// });
