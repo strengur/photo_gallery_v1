@@ -72,7 +72,7 @@ iframe {
   height: 200px;
 }
 
-/* ========== Light box overlay ========== */
+/* ========== Light box overlay (moble) ========== */
 .overlay {
   position: absolute;
   display: none;
@@ -90,7 +90,6 @@ iframe {
   top: 10px;
   width: 73vw;
   margin: 0 auto;
-  /*border: 1px solid red;*/
 }
 
 .large-image {
@@ -146,7 +145,7 @@ iframe {
     width: 449px;
   }
 
-  /* ========== Image area ========== */
+  /* ========== Image area (mobile) ========== */
   .image-area {
     width: 460px;
   }
@@ -158,7 +157,8 @@ iframe {
   .image-area li:nth-child(2n+2) {
     margin-right: 0;
   }
-  /* ========== Light box overlay ========== */
+
+  /* ========== Light box overlay (mobile) ========== */
   .overlay-image-area {
     width: 73vw;
   }
@@ -174,9 +174,9 @@ iframe {
     font-size: 1em;
   }
 
-  .overlay-image-area {
-    width: 90vw;
-    top: 40px;
+  .overlay-image-area {
+    max-width: 800px;
+    top: 10%;
   }
 
   .overlay-icon {
@@ -188,7 +188,7 @@ iframe {
   }
 
   .close {
-    top: -35px;
+    top: 0px;
     right: -35px;
   }
 
@@ -198,7 +198,7 @@ iframe {
 }
 
 @media only screen and (min-width: 840px) {
-  /* ========== Image area ========== */
+  /* ========== Image area (display) ========== */
   .image-area {
     width: 720px;
   }
@@ -213,7 +213,7 @@ iframe {
 }
 
 @media only screen and (min-width: 1100px) {
-  /* ========== Image area ========== */
+  /* ========== Image area (display) ========== */
   .image-area {
     width: 980px;
   }
