@@ -116,8 +116,7 @@ $(".overlay").hide();
 });
 
 // Live searching in grid view.
-var $unorderedList = $("#imageGalleryList");
-var $listItem = $("#imageGalleryList li")
+var $listItem = $("#imageGalleryList li");
 var $searchString = $("#search");
 
 
@@ -128,7 +127,7 @@ function isSearchPresent() {
 function hideOrShowMatchingImages() {
   if(isSearchPresent()) {
     var $input = $searchString.val().toLowerCase();
-    var $imageAttr = $listItem.each(function() {
+    $listItem.each(function() {
       if($(this).children().children().attr('alt').replace(/\s+/g, ' ').toLowerCase().includes($input)) {
         $(this).show();
       } else {
