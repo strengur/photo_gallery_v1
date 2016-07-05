@@ -43,13 +43,10 @@ $("#imageGalleryList a").click(function (event) {
 
   // Get href path for the next image to work with and add it to global varable.
   $next = $(this).parent().next("li").children();
-
-
-
 });
 
 //This function shows previous image.
-$(".previous").click(function previousImage() {
+function previousImage() {
   if ($previous !== undefined) {
     // Get and set basic variables to be used to display correct image and caption.
     var $imagePath = $($previous).attr("href");
@@ -68,7 +65,7 @@ $(".previous").click(function previousImage() {
     // Get href path for the previous image to work with and add it to global varable.
     $previous = $previous.parent().prev("li").children();
 
-    //Enable and disable left/right arrow depending if there is more to show.
+    //Enable and disable left/right arrow icon depending if there is more to show.
     if ($previous.attr("href") === undefined) {
       $(".previous").hide();
     }
@@ -76,10 +73,10 @@ $(".previous").click(function previousImage() {
       $(".next").show();
     }
   }
-});
+}
 
 //This function shows next image.
-$(".next").click(function nextImage() {
+function nextImage() {
   if ($next.attr("href") !== undefined) {
 
     // Get and set basic variables to be used to display correct image and caption.
@@ -94,12 +91,13 @@ $(".next").click(function nextImage() {
     $image.attr("src", $fullPathAndName);
     $caption.text($imageCaption);
 
+
     // Get href path for the previous image to work with and add it to global varable.
     $previous = $next.parent().prev("li").children();
     // Get href path for the next image to work with and add it to global varable.
     $next = $next.parent().next("li").children();
 
-    //Enable and disable left/right arrow depending if there is more to show.
+    //Enable and disable left/right arrow icon depending if there is more to show.
     if ($next.attr("href") === undefined) {
       $(".next").hide();
     }
@@ -107,13 +105,12 @@ $(".next").click(function nextImage() {
       $(".previous").show();
     }
   }
-});
+}
 
 // Function to close the overlay when X is clicked.
-$(".close").click(function() {
-  console.log("FFFF");
-$(".overlay").hide();
-});
+function closeTheOverlay() {
+$(".overlay").fadeOut();
+}
 
 // Live searching in grid view.
 var $listItem = $("#imageGalleryList li");
@@ -129,12 +126,44 @@ function hideOrShowMatchingImages() {
     var $input = $searchString.val().toLowerCase();
     $listItem.each(function() {
       if($(this).children().children().attr('alt').replace(/\s+/g, ' ').toLowerCase().includes($input)) {
-        $(this).show();
+        $(this).fadeIn();
       } else {
-        $(this).hide();
+        $(this).fadeOut();
       }
     });
   }
 }
 
 $searchString.keyup(hideOrShowMatchingImages);
+
+// Use arrow keys or mouse click to swich between next and previous assets and close the overlay
+// Mouse click navigation and closing overlay
+$(".next").click(function() {
+  nextImage();
+});
+
+$(".previous").click(function() {
+  previousImage();
+});
+
+$(".close").click(function() {
+  closeTheOverlay();
+});
+
+//Keyboard navigation and closing overlay with ESC key
+$(document).keydown(function(key) {
+    if (key.keyCode == 37) {
+      previousImage();
+      return false;
+    }
+
+    if (key.keyCode == 39) {
+      nextImage();
+      return false;
+    }
+
+    if (key.keyCode == 27) {
+      closeTheOverlay();
+      return false;
+    }
+});
