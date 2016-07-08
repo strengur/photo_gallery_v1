@@ -167,12 +167,18 @@ function closeTheOverlay() {
 var $listItem = $("#imageGalleryList li");
 var $searchString = $("#search");
 
-
 function isSearchPresent() {
   return $searchString.val().length = -1;
 }
 
 function hideOrShowMatchingImages() {
+  // Hide the iframe videos in grid view
+  if( !$searchString.val() ) {
+          $("iframe").fadeIn();
+    } else {
+      $("iframe").fadeOut();
+    }
+  // Hide and show image in live search
   if(isSearchPresent()) {
     var $input = $searchString.val().toLowerCase();
     $listItem.each(function() {
