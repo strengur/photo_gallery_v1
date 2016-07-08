@@ -72,6 +72,11 @@ iframe {
   height: 200px;
 }
 
+.iframe-styling {
+  width: 245px;
+  height: 185px;
+}
+
 /* ========== Light box overlay (moble) ========== */
 .overlay {
   position: absolute;
@@ -166,6 +171,10 @@ iframe {
   .overlay-image-area p {
     font-size: 0.85em;
   }
+  .iframe-styling {
+    width: 375px;
+    height: 200px;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -195,6 +204,10 @@ iframe {
   .next {
     right: -35px;
   }
+  .iframe-styling {
+    width: 555px;
+    height: 290px;
+  }
 }
 
 @media only screen and (min-width: 840px) {
@@ -209,6 +222,13 @@ iframe {
 
   .image-area li:nth-child(3n+3) {
     margin-right: 0;
+  }
+}
+
+@media only screen and (min-width: 899px) {
+  .iframe-styling {
+    width: 658px;
+    height: 370px;
   }
 }
 

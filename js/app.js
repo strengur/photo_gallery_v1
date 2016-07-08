@@ -9,6 +9,7 @@ var $caption = $("<p></p>");
 var $leftArrow = $('<img class="previous overlay-icon" src="assets/icons/left-arrow.svg" alt="Arrow icon pointing left">');
 var $rightArrow = $('<img class="next overlay-icon" src="assets/icons/right-arrow.svg" alt="Arrow icon pointing right">');
 var $closeOverlay = $('<img class="close overlay-icon" src="assets/icons/close.svg" alt="X icon to close the overlay">');
+var $iFrame = $('<iframe id="video-player" class="iframe-styling" frameborder="0" allowfullscreen allowscriptaccess="always"></iframe>');
 
 // Append elements to overlay's div
 $overlay.append($imageArea);
@@ -24,6 +25,7 @@ $("body").append($overlay);
 // When a thumbnail is clicked the the overlay is showed width this function.
 $("#imageGalleryList a").click(function (event) {
   event.preventDefault();
+
   // Get and set basic variables to be used to display correct image and caption.
   var $imagePath = $(this).attr("href");
   // Use the slice property to get only the file name of the thumbnail.
@@ -38,16 +40,37 @@ $("#imageGalleryList a").click(function (event) {
 
   $overlay.fadeIn();
 
-  // Get href path for the previous image to work with and add it to global varable.
+  // Scroll to the top of page
+  $('html,body').scrollTop(0);
+
+  // Get href path for the previous image/video to work with and add it to global varable.
   $previous = $(this).parent().prev("li").children();
 
-  // Get href path for the next image to work with and add it to global varable.
+  // Get href path for the next image/video to work with and add it to global varable.
   $next = $(this).parent().next("li").children();
 });
 
 //This function shows previous image.
 function previousImage() {
-  if ($previous !== undefined) {
+
+  if ($previous.is("iframe")) {
+    var $videoSource = $previous.attr("src");
+    $image.remove();
+    $caption.remove();
+    $imageArea.append($iFrame);
+    $iFrame.attr("src", $videoSource);
+
+    // Get href path for the next image to work with and add it to global varable.
+    $next = $previous.parent().next("li").children();
+    // Get href path for the previous image to work with and add it to global varable.
+    $previous = $previous.parent().prev("li").children();
+
+  } else if ($previous !== undefined) {
+    // Remove the video and place the image and caption
+    $iFrame.remove();
+    $imageArea.append($image);
+    $imageArea.append($caption);
+
     // Get and set basic variables to be used to display correct image and caption.
     var $imagePath = $($previous).attr("href");
     // Use the slice to get only the file name of the thumbnail.
@@ -64,21 +87,41 @@ function previousImage() {
     $next = $previous.parent().next("li").children();
     // Get href path for the previous image to work with and add it to global varable.
     $previous = $previous.parent().prev("li").children();
+  }
 
-    //Enable and disable left/right arrow icon depending if there is more to show.
-    if ($previous.attr("href") === undefined) {
-      $(".previous").hide();
-    }
-    if ($next.attr("href") !== undefined) {
-      $(".next").show();
-    }
+  //Enable or disable left/right arrow icon depending if there is more to show.
+  if ($next.is("iframe") || $next.attr("href") !== undefined) {
+    $(".next").show();
+  } else {
+    $(".next").hide();
+  }
+
+  if ($previous.is("iframe") || $previous.attr("href") !== undefined) {
+    $(".previous").show();
+  } else {
+    $(".previous").hide();
   }
 }
 
 //This function shows next image.
 function nextImage() {
-  if ($next.attr("href") !== undefined) {
 
+  if ($next.is("iframe")) {
+    var $videoSource = $next.attr("src");
+    $image.remove();
+    $caption.remove();
+    $imageArea.append($iFrame);
+    $iFrame.attr("src", $videoSource);
+
+    // Get href path for the previous image/video to work with and add it to global varable.
+    $previous = $next.parent().prev("li").children();
+    // Get href path for the next image/video to work with and add it to global varable.
+    $next = $next.parent().next("li").children();
+  } else if ($next.attr("href") !== undefined) {
+    // Remove the video and place the image and caption
+    $iFrame.remove();
+    $imageArea.append($image);
+    $imageArea.append($caption);
     // Get and set basic variables to be used to display correct image and caption.
     var $imagePath = $($next).attr("href");
     // Use the slice to get only the file name of the thumbnail.
@@ -91,25 +134,33 @@ function nextImage() {
     $image.attr("src", $fullPathAndName);
     $caption.text($imageCaption);
 
-
     // Get href path for the previous image to work with and add it to global varable.
     $previous = $next.parent().prev("li").children();
     // Get href path for the next image to work with and add it to global varable.
     $next = $next.parent().next("li").children();
+  }
 
-    //Enable and disable left/right arrow icon depending if there is more to show.
-    if ($next.attr("href") === undefined) {
-      $(".next").hide();
-    }
-    if ($previous.attr("href") !== undefined) {
-      $(".previous").show();
-    }
+  //Enable or disable left/right arrow icon depending if there is more to show.
+  if ($previous.is("iframe") || $previous.attr("href") !== undefined) {
+    $(".previous").show();
+  } else {
+    $(".previous").hide();
+  }
+
+  if ($next.is("iframe") || $next.attr("href") !== undefined) {
+    $(".next").show();
+  } else {
+    $(".next").hide();
   }
 }
 
 // Function to close the overlay when X is clicked.
 function closeTheOverlay() {
-$(".overlay").fadeOut();
+  $("iframe").each(function() {
+  $(this)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+});
+
+  $(".overlay").fadeOut();
 }
 
 // Live searching in grid view.
